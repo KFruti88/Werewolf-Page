@@ -1,0 +1,63 @@
+<div class="canvas-720p" id="env">
+    <div id="sky-layer" class="sky-box">
+        <div id="celestial-body" class="sun-moon"></div>
+        <div id="weather-effect"></div>
+        <div id="thunder-flash" class="lightning"></div>
+    </div>
+    
+    <div id="ground-layer" class="ground-box">
+        <div class="ground-texture"></div>
+        <div id="puddle-layer"></div>
+        <div id="leaf-layer"></div>
+    </div>
+    
+    <div class="vignette"></div>
+
+    <div class="brb-card" id="main-card">
+        <div class="glass-inner">
+            <header class="header-section">
+                <h1 class="glitch-title" id="main-title" data-text="BE RIGHT BACK">BE RIGHT BACK</h1>
+                <div class="status-wrap">
+                    <span class="pulse-icon" id="accent-pulse"></span>
+                    <p class="sub-status">GAINESVILLE 32609 LIVE SYNC</p>
+                </div>
+            </header>
+
+            <div class="main-layout">
+                <div class="info-side">
+                    <div class="stat-item" id="game-box">
+                        <span class="stat-label">CURRENTLY PLAYING</span>
+                        <span id="game-name" class="stat-value">SYNCING...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">SESSION UPTIME</span>
+                        <span id="uptime-clock" class="stat-value">00:00:00</span>
+                    </div>
+                    <div class="qr-container">
+                        <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://linktr.ee/werewolf3788&color=00ffcc&bgcolor=ffffff" alt="Linktree">
+                        <div class="qr-text">
+                            <span class="connect-label">SCAN FOR LINKS</span>
+                            <span class="url-display">linktr.ee/werewolf3788</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="events-side">
+                    <span class="stat-label">NEWEST ACTIVITY</span>
+                    <div class="main-container" id="event-list"></div>
+                </div>
+            </div>
+
+            <footer class="footer-bar">
+                <div class="pt-header">
+                    <span class="stat-label">GLOBAL PROGRESS TRACKING</span>
+                    <span class="pt-id">ID: WEREWOLF_5386</span>
+                </div>
+                <p class="pt-description no-mobile">
+                    Aggregating live trophies across <strong>PlayStation</strong> and <strong>Xbox</strong> via <strong>PlayTracker.net</strong>.
+                </p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">

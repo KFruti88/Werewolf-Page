@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Werewolf Hunter Command Center V7.1</title>
+    
+    <style>
+        /* ==========================================================================
+           WEREWOLF 720P OPTIMIZED STYLES - V7.1 (Screen-Edge Corners)
+           ========================================================================== */
+        @import url(https://fonts.googleapis.com/css?family=Roboto:700,900);
+
+        :root {
+            --accent-color: #FF5F1F;
+            --bg-opacity: rgba(0,0,0,0.85);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { 
+            height: 100vh; width: 100vw; margin: 0; padding: 0; 
+            overflow: hidden; background: transparent; 
+            font-family: 'Roboto', sans-serif; 
+            transition: all 0.5s ease;
+        }
+
+        /* --- TEST MODE ANIMATION --- */
+        @keyframes rgbGlow {
+            0% { --accent-color: #ff0000; }
+            20% { --accent-color: #ff00ff; }
+            40% { --accent-color: #0000ff; }
+            60% { --accent-color: #00ffff; }
+            80% { --accent-color: #00ff00; }
+            100% { --accent-color: #ffff00; }
+        }
+        body.theme-test { animation: rgbGlow 5s linear infinite; }
+
+        /* --- THEME DEFINITIONS --- */
+        body.theme-rdr2 { --accent-color: #ff0000; } 
+        body.theme-rivals { --accent-color: #FFD700; } 
+        body.theme-farming { --accent-color: #b50000; } 
+        body.theme-ron { --accent-color: #cc0000; --bg-opacity: rgba(0,0,0,0.95); }
+
+        /* --- SCREEN-EDGE CORNER BRACKETS --- */
+        .corner {
+            position: fixed; width: 60px; height: 60px;
+            border: 6px solid var(--accent-color);
+            filter: drop-shadow(0 0 12px var(--accent-color));
+            transition: all 0.5s ease;
+            z-index: 9999;
+        }
+        .top-left { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+        .top-right { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+        .bottom-left { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+        .bottom-right { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+
+        /* --- RESPONSIVE CONTENT AREA (90%) --- */
+        .overlay-canvas {
+            position: relative; width: 90%; height: 90%; margin: 2.5vh auto;
+        }
+
+        /* --- DYNAMIC GLOW ELEMENTS --- */
+        .alert-box { border-color: var(--accent-color); box-shadow: 0 0 20px var(--accent-color); background: var(--bg-opacity); }
+        .alert-title { text-shadow: 0 0 8px var(--accent-color); }
+        .info-pill { border-right: 4px solid var(--accent-color); background: var(--bg-opacity); }
+        .brand-footer #shoutout-display { border-left: 3px solid var(--accent-color); background: var(--bg-opacity); }
+        .brand-footer #game-name-display { text-shadow: 0 0 8px #000, 0 0 4px var(--accent-color); }
+        .main-logo { border: 3px solid var(--accent-color); filter: drop-shadow(0 0 8px var(--accent-color)); }
+        .chat-meta { border-left: 3px solid var(--accent-color); background: var(--bg-opacity); }
+
+        /* --- UI ELEMENTS --- */
+        #alert-container { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 450px; text-align: center; z-index: 5000; }
+        .alert-box { display: none; border-radius: 10px; padding: 15px; animation: alertSlide 8s ease-in-out forwards; }
+        .alert-title { color: #FFD700; font-size: 30px; font-weight: 900; text-transform: uppercase; }
+        .alert-user { color: white; font-size: 24px; margin-top: 5px; }
+
+        @keyframes alertSlide {
+            0% { opacity: 0; transform: translateY(-80px) scale(0.8); }
+            10% { opacity: 1; transform: translateY(0) scale(1.05); }
+            15% { transform: scale(1); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-40px); }
+        }
+
+        .top-right-hub { position: absolute; top: 0; right: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .info-pill { padding: 5px 15px; color: white; font-weight: 900; border-radius: 4px; display: flex; align-items: center; gap: 10px; font-size: 14px; }
+        .qr-box img { width: 50px; height: 50px; border-radius: 3px; }
+
+        #trophy-panel { position: absolute; right: 0; top: 110px; display: none; flex-direction: column; gap: 5px; }
+        .tracker-box { background: var(--bg-opacity); padding: 4px 10px; border-radius: 3px; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-width: 120px; border-right-width: 3px; border-right-style: solid; }
+        
+        .brand-footer { position: absolute; bottom: 0; right: 0; display: flex; align-items: center; gap: 15px; }
+        .text-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; width: 300px; }
+        #shoutout-display { padding: 6px 12px; color: white; font-size: 11px; text-align: center; border-radius: 3px; width: 100%; font-weight: 700; }
+        #game-name-display { font-size: 20px; font-weight: 900; color: white; text-transform: uppercase; }
+        .main-logo { height: 80px; width: 80px; border-radius: 50%; background: #000; }
+
+        #log { position: absolute; bottom: 0; left: 0; width: 320px; display: flex; flex-direction: column-reverse; gap: 4px; }
+        .chat-row { display: flex; animation: fadeIn 0.4s ease-out forwards; }
+        .chat-meta { width: 100px; text-align: right; padding: 6px 8px; color: white; font-weight: 900; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .chat-message { flex: 1; padding: 6px 8px; color: white; font-weight: 700; font-size: 12px; word-wrap: break-word; background: rgba(0,0,0,0.5); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+<div class="corner top-left"></div>
+<div class="corner top-right"></div>
+<div class="corner bottom-left"></div>
+<div class="corner bottom-right"></div>
+
+<div class="overlay-canvas">
+    <div id="alert-container"><div id="flashy-alert" class="alert-box"><div id="alert-type" class="alert-title"></div><div id="alert-user" class="alert-user"></div></div></div>
+    
+    <div class="top-right-hub">
+        <div class="info-pill">
+            <span>🐺</span>
+            <span id="local-time">--:--</span>
+            <span>| EST</span>
+        </div>
+        <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=https://www.amazon.com/gp/goldbox?tag=werewolf3788-20" alt="Amazon Deals QR">
+        </div>
+    </div>
+
+    <div id="trophy-panel">
+        <div class="tracker-box" id="box-greatone"><span class="count-lbl">Great One</span><span id="greatone" class="count-val">0</span></div>
+        <div class="tracker-box" id="box-legendary"><span class="count-lbl">Legendary</span><span id="legendary" class="count-val">0</span></div>
+        <div class="tracker-box" id="box-mythical"><span class="count-lbl">Mythical</span><span id="mythical" class="count-val">0</span></div>
+        <div class="tracker-box" id="box-diamond"><span class="count-lbl">Diamond</span><span id="diamond" class="count-val">0</span></div>
+        <div class="tracker-box" id="box-gold"><span class="count-lbl">Gold</span><span id="gold" class="count-val">0</span></div>
+        <div class="tracker-box" id="box-silver"><span class="count-lbl">Silver</span><span id="silver" class="count-val">0</span></div>
+        <div class="tracker-box" id="box-bronze"><span class="count-lbl">Bronze</span><span id="bronze" class="count-val">0</span></div>
+    </div>
+
+    <div class="brand-footer">
+        <div class="text-stack">
+            <div id="game-name-display">FETCHING GAME...</div>
+            <div id="shoutout-display">Scan the QR to support the Pack! 🐺</div>
+        </div>
+        <img src="https://raw.githubusercontent.com/KFruti88/Universal-Stream-Overlay/main/images/werewolf3788.png" class="main-logo" alt="Werewolf Logo">
+    </div>
+
+    <div id="log"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+<script>
+    const user = "werewolf3788";
+    const careerTotals = { bronze: 410, silver: 544, gold: 193, mythical: 5, diamond: 6, legendary: 0, greatone: 0 };
+
+    async function updateGameName() {
+        try {
+            const response = await fetch('https://decapi.me/twitch/game/werewolf3788');
+            const gameName = await response.text();
+            document.getElementById('game-name-display').innerText = gameName || "OFFLINE";
+
+            const body = document.body;
+            const panel = document.getElementById('trophy-panel');
+            body.className = "";
+
+            if (gameName.includes("Test") || gameName.includes("Just Chatting")) {
+                body.classList.add("theme-test");
+            } else if (gameName.includes("Red Dead")) {
+                body.classList.add("theme-rdr2");
+            } else if (gameName.includes("Marvel Rivals")) {
+                body.classList.add("theme-rivals");
+            } else if (gameName.includes("Farming Simulator")) {
+                body.classList.add("theme-farming");
+            } else if (gameName.includes("Ready or Not")) {
+                body.classList.add("theme-ron");
+            }
+
+            if (gameName.includes("Hunter") || gameName.includes("Angler")) {
+                panel.style.display = 'flex';
+            } else {
+                panel.style.display = 'none';
+            }
+        } catch (err) { console.log("API Error", err); }
+    }
+
+    function updateTrophyDisplay() {
+        const tiers = ['bronze', 'silver', 'gold', 'mythical', 'diamond', 'legendary', 'greatone'];
+        tiers.forEach(tier => {
+            const val = careerTotals[tier];
+            const box = document.getElementById('box-' + tier);
+            const span = document.getElementById(tier);
+            if (span) span.innerText = val;
+            if (box) box.style.display = (val === 0) ? 'none' : 'flex';
+        });
+    }
+
+    function updateClock() {
+        const est = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' });
+        document.getElementById('local-time').innerText = est;
+    }
+
+    function triggerAlert(type, name) {
+        const box = document.getElementById('flashy-alert');
+        document.getElementById('alert-type').innerText = type;
+        document.getElementById('alert-user').innerText = name.toUpperCase();
+        box.style.display = 'block';
+        setTimeout(() => { box.style.display = 'none'; }, 8000);
+    }
+
+    ComfyJS.onFollow = (user) => { triggerAlert("NEW FOLLOWER", user); };
+    ComfyJS.onSub = (user) => { triggerAlert("NEW SUBSCRIBER", user); };
+    ComfyJS.onChat = (chatUser, message, flags, self, extra) => {
+        if (self) return;
+        const log = document.getElementById('log');
+        const row = document.createElement('div'); row.className = "chat-row";
+        row.innerHTML = `<span class="chat-meta" style="color: ${extra.userColor || '#FFF'}">${chatUser}</span><span class="chat-message">${message}</span>`;
+        log.prepend(row);
+        if (log.children.length > 8) log.removeChild(log.lastChild);
+    };
+
+    setInterval(updateClock, 1000);
+    setInterval(updateGameName, 10000);
+    updateClock();
+    updateGameName();
+    updateTrophyDisplay();
+    ComfyJS.Init(user);
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>Werewolf Hunter - COTW Command Center</title>
+    
+    <style>
+        /* ==========================================
+           CSS: STYLING & LAYOUT
+           ========================================== */
+        @import url(https://fonts.googleapis.com/css?family=Roboto:700,900);
+
+        * { box-sizing: border-box; }
+
+        html, body { 
+            height: 100%; width: 100%; margin: 0; padding: 0; 
+            overflow: hidden; background: transparent; 
+            font-family: 'Roboto', sans-serif; 
+        }
+
+        /* Pixel Chat Integration Layer */
+        #pixel-chat-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; z-index: 10; pointer-events: none;
+        }
+
+        /* Tribute Bar: January Only Logic */
+        #tribute-bar {
+            display: none; 
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            align-items: center; gap: 20px;
+            background: linear-gradient(180deg, rgba(30,30,30,0.98) 0%, rgba(0,0,0,0.95) 100%); 
+            padding: 12px 40px; border-bottom: 4px solid #FFD700; border-radius: 0 0 20px 20px;
+            color: white; z-index: 1000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+        #tribute-bar img { height: 20px; }
+        #tribute-bar span { letter-spacing: 2px; font-weight: 900; }
+
+        /* HUD Hub (Top Right) */
+        .top-right-hub { position: absolute; top: 20px; right: 40px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 100; }
+        .info-pill { background: rgba(0,0,0,0.85); border-right: 6px solid #FF5F1F; padding: 8px 22px; color: white; font-weight: 900; border-radius: 4px; display: flex; align-items: center; gap: 15px; }
+        .qr-box { background: white; padding: 4px; border-radius: 4px; filter: drop-shadow(0 0 8px rgba(0,0,0,0.5)); }
+
+        /* Trophy Panel */
+        #trophy-panel { 
+            position: absolute; right: 40px; top: 150px; 
+            display: flex; flex-direction: column; gap: 10px; z-index: 100; 
+        }
+        .trophy-row { display: flex; align-items: center; gap: 5px; animation: fadeIn 0.5s forwards; }
+        .icon-box { 
+            background: rgba(0,0,0,0.9); border: 2px solid #FF5F1F; 
+            padding: 10px; border-radius: 6px; width: 70px; height: 70px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        #go-box { border: 2px solid #FFD700; box-shadow: 0 0 15px #FFD700; }
+        .icon-box .emoji { font-size: 35px; }
+        .shady-box {
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255, 95, 31, 0.3);
+            border-radius: 4px; width: 120px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.2); font-size: 12px; text-transform: uppercase;
+        }
+
+        /* Branding Footer */
+        .brand-footer { position: absolute; bottom: 80px; right: 40px; display: flex; align-items: center; gap: 20px; z-index: 100; }
+        #game-name-display { font-size: 28px; font-weight: 900; color: white; text-transform: uppercase; text-shadow: 0 0 10px #000, 0 0 5px #FF5F1F; }
+        .main-logo { height: 100px; width: 100px; border-radius: 50%; border: 4px solid #FF5F1F; background: #000; }
+
+        /* Chat Ticker - Enhanced for High Readability */
+        #chat-ticker-container {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 60px;
+            background: rgba(0, 0, 0, 0.95); border-top: 3px solid #FF5F1F;
+            overflow: hidden; z-index: 1000; display: flex; align-items: center;
+        }
+        .ticker-message { 
+            position: absolute; white-space: nowrap; color: white; 
+            font-size: 26px; font-weight: 900; display: flex; align-items: center; gap: 12px; 
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            letter-spacing: 1px;
+        }
+        .ticker-user { text-transform: uppercase; padding-right: 5px; }
+
+        /* Bouncing Emojis */
+        #bounce-container { position: absolute; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; }
+        .bouncing-emoji { position: absolute; font-size: 50px; filter: drop-shadow(0 0 10px white); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <iframe id="pixel-chat-overlay" src="https://pixel.chat/s/7tcKlUnNgiUaRL5/18ff835d-ea5d-4b4f-a624-248241a75cd2"></iframe>
+
+    <div id="bounce-container"></div>
+
+    <div id="tribute-bar">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="US Flag">
+        <span>IN HONOR OF OLDMAN - JAN, 2026</span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="US Flag">
+    </div>
+
+    <div class="top-right-hub">
+        <div class="info-pill">
+            <span>🦌</span><span id="local-time">--:--</span><span>| EST</span>
+        </div>
+        <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://www.amazon.com/gp/goldbox?tag=werewolf3788-20" alt="Amazon QR">
+        </div>
+    </div>
+
+    <div id="trophy-panel">
+        <div class="trophy-row"><div id="go-box" class="icon-box"><span class="emoji">👑</span></div><div class="shady-box">N/A</div></div>
+        <div class="trophy-row"><div class="icon-box"><span class="emoji">💎</span></div><div class="shady-box">N/A</div></div>
+        <div class="trophy-row"><div class="icon-box"><span class="emoji">🥇</span></div><div class="shady-box">N/A</div></div>
+        <div class="trophy-row"><div class="icon-box"><span class="emoji">🥈</span></div><div class="shady-box">N/A</div></div>
+        <div class="trophy-row"><div class="icon-box"><span class="emoji">🥉</span></div><div class="shady-box">N/A</div></div>
+    </div>
+
+    <div class="brand-footer">
+        <div id="game-name-display">THE HUNTER: CALL OF THE WILD</div>
+        <img src="https://werewolf.ourflora.com/wp-content/uploads/2025/12/image_2025-12-22_222907634.png" class="main-logo">
+    </div>
+
+    <div id="chat-ticker-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+    <script>
+        const guestUser = "unicornbunnyshiver";
+        const guestEmojis = ["🦄", "🐇", "✨", "🌈"];
+
+        function addTickerMessage(user, message, color) {
+            const container = document.getElementById('chat-ticker-container');
+            const msgEl = document.createElement('div');
+            msgEl.className = 'ticker-message';
+            
+            // Added margin-right to prevent messages from blending into each other
+            msgEl.style.marginRight = "100px"; 
+            
+            msgEl.innerHTML = `<span class="ticker-user" style="color: ${color || '#FF5F1F'}">${user.toUpperCase()}:</span> <span>${message}</span>`;
+            
+            let posX = window.innerWidth;
+            container.appendChild(msgEl);
+            
+            function scroll() {
+                posX -= 2.5; // Slightly slower scroll for better readability
+                msgEl.style.transform = `translateX(${posX}px)`;
+                if (posX > -msgEl.offsetWidth - 200) {
+                    requestAnimationFrame(scroll);
+                } else {
+                    msgEl.remove();
+                }
+            }
+            scroll();
+        }
+
+        function spawnBouncingEmoji() {
+            const container = document.getElementById('bounce-container');
+            const el = document.createElement('div');
+            el.className = 'bouncing-emoji';
+            el.innerText = guestEmojis[Math.floor(Math.random() * guestEmojis.length)];
+            let px = -50, py = Math.random() * (window.innerHeight - 200), sx = 5 + Math.random() * 5, sy = (Math.random() - 0.5) * 10, g = 0.2;
+            container.appendChild(el);
+            
+            function anim() {
+                px += sx; sy += g; py += sy;
+                if (py + 60 > window.innerHeight - 60) { py = window.innerHeight - 120; sy *= -0.8; }
+                el.style.transform = `translate(${px}px, ${py}px)`;
+                if (px < window.innerWidth + 100) requestAnimationFrame(anim);
+                else el.remove();
+            }
+            anim();
+        }
+
+        function updateHUD() {
+            const now = new Date();
+            document.getElementById('local-time').innerText = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' 
+            });
+            const isJanuary = now.getMonth() === 0;
+            document.getElementById('tribute-bar').style.display = isJanuary ? 'flex' : 'none';
+        }
+
+        ComfyJS.onChat = (user, msg, flags, self, extra) => {
+            if (self) return;
+            addTickerMessage(user, msg, extra.userColor);
+            if (user.toLowerCase() === guestUser) {
+                for (let i = 0; i < 15; i++) { setTimeout(spawnBouncingEmoji, i * 150); }
+            }
+        };
+
+        setInterval(updateHUD, 1000);
+        updateHUD();
+        ComfyJS.Init("werewolf3788");
+    </script>
+</body>
+</html>
