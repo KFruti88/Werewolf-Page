@@ -23,6 +23,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            padding-top: 60px;
         }
 
         .container {
@@ -118,9 +119,51 @@
             h1 { font-size: 2.2rem; }
             .portal-grid { grid-template-columns: 1fr; }
         }
+
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body>
+
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="https://werewolf.ourflora.com/werewolf/">Werewolf</a>
+        <a href="https://werewolf.ourflora.com/raymystro/">Ray</a>
+        <a href="https://werewolf.ourflora.com/darkwing-dog/">TJ</a>
+        <a href="https://werewolf.ourflora.com/mjolnirgaming-2/">Michael</a>
+    </div>
 
     <div class="container">
         <h1>Werewolf Projects</h1>

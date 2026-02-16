@@ -31,7 +31,7 @@
         }
 
         #top-counter-bar {
-            position: fixed; top: 0; width: 100%;
+            position: fixed; top: 50px; width: 100%;
             background: rgba(10, 10, 10, 0.95);
             border-bottom: 2px solid var(--ma-blue);
             padding: 10px 0; text-align: center; z-index: 1000;
@@ -52,7 +52,7 @@
             margin-top: 40px; margin-bottom: 60px;
         }
 
-        .header-section { margin-top: 120px; text-align: center; }
+        .header-section { margin-top: 160px; text-align: center; }
 
         .search-wrapper {
             width: 90%; max-width: 600px; margin: 10px 0 20px 0;
@@ -89,9 +89,52 @@
         @media (max-width: 768px) {
             #movie-container { width: 95% !important; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         }
+
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: 50px;
+        }
+
+        .navbar a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body>
+
+    <div class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="https://werewolf.ourflora.com/werewolf/">Werewolf</a>
+        <a href="https://werewolf.ourflora.com/raymystro/">Ray</a>
+        <a href="https://werewolf.ourflora.com/darkwing-dog/">TJ</a>
+        <a href="https://werewolf.ourflora.com/mjolnirgaming-2/">Michael</a>
+    </div>
 
     <div id="top-counter-bar">
         <div id="movie-count-badge">Collection Loading...</div>

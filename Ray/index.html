@@ -21,6 +21,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            padding-top: 70px; /* Space for navbar */
         }
 
         /* 90% Width Constraint */
@@ -125,9 +126,51 @@
             .container { width: 95%; }
             h1 { font-size: 1.8rem; }
         }
+
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body>
+
+    <div class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../Werewolf/index.html">Werewolf</a>
+        <a href="../Ray/index.html">Ray</a>
+        <a href="../TJ/index.html">TJ</a>
+        <a href="../Michael/index.html">Michael</a>
+    </div>
 
     <div class="container">
         <header>

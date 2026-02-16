@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MjolnirGaming Hub | Project Dashboard</title>
+    <title>Michael Hub | Project Dashboard</title>
     <style>
         /* Base Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #000;
             background-image: 
-                radial-gradient(circle at 20% 20%, rgba(0, 191, 255, 0.15), transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.15), transparent 40%),
-                linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+                radial-gradient(circle at 20% 20%, rgba(255, 69, 0, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1), transparent 40%),
+                linear-gradient(135deg, #1a0500, #3d0e00, #1a0500);
             background-attachment: fixed;
             color: #e0e0e0;
             margin: 0;
@@ -21,6 +21,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            padding-top: 70px; /* Space for navbar */
         }
 
         /* 90% Width Constraint */
@@ -35,7 +36,7 @@
         }
 
         h1 {
-            color: #00BFFF;
+            color: #ff4500;
             font-size: 2.5rem;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -63,7 +64,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: #00BFFF;
+            border-color: #ff4500;
         }
 
         .card h2 {
@@ -93,7 +94,7 @@
 
         .btn {
             display: inline-block;
-            background: #00BFFF;
+            background: #ff4500;
             color: white;
             text-decoration: none;
             padding: 10px 20px;
@@ -104,7 +105,7 @@
         }
 
         .btn:hover {
-            background: #0080ff;
+            background: #e03e00;
         }
 
         /* Affiliate/Footer Section */
@@ -116,7 +117,7 @@
         }
 
         .affiliate-link {
-            color: #00BFFF;
+            color: #ff4500;
             text-decoration: none;
         }
 
@@ -125,38 +126,69 @@
             .container { width: 95%; }
             h1 { font-size: 1.8rem; }
         }
+
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body>
 
+    <div class="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../Werewolf/index.html">Werewolf</a>
+        <a href="../Ray/index.html">Ray</a>
+        <a href="../TJ/index.html">TJ</a>
+        <a href="../Michael/index.html">Michael</a>
+    </div>
+
     <div class="container">
         <header>
-            <h1>MjolnirGaming Project Hub</h1>
-            <p>Gaming and Streaming Projects</p>
+            <h1>Michael Project Hub</h1>
+            <p>Gaming and Tracking Projects</p>
         </header>
 
         <main class="dashboard-grid">
             
             <div class="card">
                 <div>
-                    <h2>MjolnirGaming</h2>
+                    <h2>New Project</h2>
                     <div class="card-tags">
-                        <span class="tag">Twitch</span><span class="tag">Stream</span>
+                        <span class="tag">Michael</span><span class="tag">Pending</span>
                     </div>
-                    <p>Catch MjolnirGaming live on Twitch! Streaming various games and hanging out.</p>
+                    <p>This is a placeholder for a new project. Add your details here.</p>
                 </div>
-                <a href="https://www.twitch.tv/mjolnirgaming" class="btn" target="_blank">Watch Live</a>
-            </div>
-
-            <div class="card">
-                <div>
-                    <h2>Main Overlay</h2>
-                    <div class="card-tags">
-                        <span class="tag">Overlay</span><span class="tag">General</span>
-                    </div>
-                    <p>Main stream overlay with chat, alerts, and branding.</p>
-                </div>
-                <a href="main-overlay.html" class="btn" target="_blank">Launch Overlay</a>
+                <a href="#" class="btn">View Project</a>
             </div>
 
         </main>
