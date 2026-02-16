@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MjolnirGaming Hub | Project Dashboard</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 90% Width Constraint */
+        .container {
+            width: 90%;
+            max-width: 1400px;
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 40px;
+        }
+
+        h1 {
+            color: #ff4500;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* Project Cards */
+        .card {
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #ff4500;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #bbb;
+        }
+
+        .card-tags {
+            margin: 10px 0;
+        }
+
+        .tag {
+            background: #444;
+            color: #fff;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ff4500;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background: #e03e00;
+        }
+
+        /* Affiliate/Footer Section */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .affiliate-link {
+            color: #ff4500;
+            text-decoration: none;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .container { width: 95%; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>MjolnirGaming Project Hub</h1>
+            <p>Gaming and Streaming</p>
+        </header>
+
+        <main class="dashboard-grid">
+            
+            <div class="card">
+                <div>
+                    <h2>MjolnirGaming</h2>
+                    <div class="card-tags">
+                        <span class="tag">Twitch</span><span class="tag">Stream</span>
+                    </div>
+                    <p>Check out MjolnirGaming's stream on Twitch.</p>
+                </div>
+                <a href="https://www.twitch.tv/mjolnirgaming" class="btn" target="_blank">Watch Live</a>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>Need new gear? Check out <a href="https://www.amazon.com/gp/goldbox?tag=werewolf3788-20" class="affiliate-link">Today's Amazon Deals</a></p>
+            <p>&copy; 2026 Werewolf Projects | Affiliate ID: Werewolf3788-20</p>
+        </footer>
+    </div>
+
+</body>
+</html>
