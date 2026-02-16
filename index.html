@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Werewolf Projects | Main Portal</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            /* Deep space galaxy effect */
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(76, 29, 149, 0.15), transparent 50%),
+                radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.05), transparent 30%),
+                linear-gradient(135deg, #020005, #0a0a0a, #020005);
+            background-attachment: fixed;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff4500, #a020f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 900;
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 50px;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .portal-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .portal-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .portal-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Individual Card Hover Glows */
+        .card-werewolf:hover { box-shadow: 0 15px 35px rgba(255, 69, 0, 0.2); border-color: #ff4500; }
+        .card-ray:hover { box-shadow: 0 15px 35px rgba(255, 140, 0, 0.2); border-color: #ff8c00; }
+        .card-tj:hover { box-shadow: 0 15px 35px rgba(160, 32, 240, 0.2); border-color: #a020f0; }
+        .card-michael:hover { box-shadow: 0 15px 35px rgba(0, 191, 255, 0.2); border-color: #00bfff; }
+
+        .portal-card h2 {
+            margin: 15px 0 5px 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .portal-card span {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .portal-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Werewolf Projects</h1>
+        <p class="subtitle">Select a Hub to Enter</p>
+
+        <div class="portal-grid">
+            <a href="https://werewolf.ourflora.com/werewolf/" class="portal-card card-werewolf">
+                <div class="icon">🐺</div>
+                <h2>Werewolf</h2>
+                <span>Project Hub</span>
+            </a>
+
+            <a href="https://werewolf.ourflora.com/raymystro/" class="portal-card card-ray">
+                <div class="icon">🎯</div>
+                <h2>RayMystyro</h2>
+                <span>Gaming & Tracking</span>
+            </a>
+
+            <a href="https://werewolf.ourflora.com/darkwing-dog/" class="portal-card card-tj">
+                <div class="icon">👾</div>
+                <h2>Terrdog420</h2>
+                <span>Stream & Tech</span>
+            </a>
+
+            <a href="https://werewolf.ourflora.com/mjolnirgaming-2/" class="portal-card card-michael">
+                <div class="icon">⚡</div>
+                <h2>MjolnirGaming</h2>
+                <span>Stream Hub</span>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
