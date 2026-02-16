@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700;900&display=swap');
+
+        * { box-sizing: border-box; }
+        html, body { 
+            height: 100%; width: 100%; margin: 0; padding: 0; 
+            overflow: hidden; background: transparent; font-family: 'Roboto', sans-serif; 
+        }
+
+        /* --- THE DYNAMIC COLOR ENGINE --- */
+        :root {
+            --mjolnir-accent: #00BFFF; 
+            --mjolnir-glow: rgba(0, 191, 255, 0.8);
+        }
+
+        /* --- OLDMAN TRIBUTE BAR (CONDITIONAL) --- */
+        #tribute-bar {
+            display: none; /* Injected via JS for specific games */
+            background: rgba(0,0,0,0.9); padding: 10px 30px; 
+            border-bottom: 4px solid #FFD700; color: white; 
+            font-size: 16px; letter-spacing: 1.5px; border-radius: 0 0 15px 15px; 
+            text-shadow: 2px 2px 4px #000; align-items: center; justify-content: center; 
+            gap: 15px; width: fit-content; margin: 0 auto;
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 300;
+        }
+        .flag { height: 16px; width: auto; }
+
+        /* --- JAGGED LIGHTNING STORM --- */
+        #storm-container { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 50%; 
+            pointer-events: none; z-index: 99;
+        }
+        .bolt { 
+            position: absolute; width: 100px; height: 100%; fill: none; 
+            stroke: var(--mjolnir-accent); stroke-width: 5; 
+            filter: drop-shadow(0 0 8px var(--mjolnir-accent)) drop-shadow(0 0 15px #FFF); 
+            opacity: 0; animation: boltZap 5s infinite; 
+            transition: stroke 2s ease, filter 2s ease;
+        }
+        .bolt-left { left: 5px; }
+        .bolt-right { right: 5px; transform: scaleX(-1); }
+
+        @keyframes boltZap {
+            0%, 92%, 100% { opacity: 0; stroke-dasharray: 1000; stroke-dashoffset: 1000; }
+            93%, 98% { opacity: 1; stroke-dasharray: 1000; stroke-dashoffset: 0; }
+            95% { opacity: 0.8; }
+        }
+
+        /* --- SLIM PROMO BAR (45px) --- */
+        #ticker-bar {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 45px; 
+            background: rgba(0, 0, 0, 0.95); border-top: 3px solid var(--mjolnir-accent); 
+            display: flex; align-items: center; overflow: hidden; 
+            white-space: nowrap; z-index: 200; transition: border-color 2s ease;
+        }
+        #ticker-scroll { 
+            display: inline-block; padding-left: 100%; 
+            animation: tickerLoop 30s linear infinite; 
+            color: white; font-weight: 900; font-size: 20px; 
+        }
+        @keyframes tickerLoop { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        .ticker-item { margin-right: 350px; display: inline-block; letter-spacing: 1.5px; text-transform: uppercase; }
+        .accent { color: var(--mjolnir-accent); text-shadow: 0 0 10px var(--mjolnir-glow); }
+
+        /* --- HUD ELEMENTS --- */
+        .hud-footer { position: absolute; bottom: 60px; right: 35px; z-index: 150; }
+        .stream-logo { 
+            height: 100px; width: 100px; border-radius: 50%; 
+            border: 4px solid var(--mjolnir-accent); background: #000; 
+            filter: drop-shadow(0 0 15px var(--mjolnir-accent)); 
+            transition: border-color 2s ease, filter 2s ease;
+        }
+
+        /* --- CHAT LOG --- */
+        #chat-container { position: absolute; bottom: 60px; left: 35px; width: 400px; z-index: 150; }
+        .chat-entry {
+            background: rgba(0, 0, 0, 0.85); border-left: 5px solid var(--mjolnir-accent);
+            padding: 10px; margin-bottom: 8px; color: white;
+            font-weight: 700; font-size: 18px; animation: chatSlide 0.3s ease-out;
+            transition: border-color 2s ease;
+        }
+        .chat-user { color: var(--mjolnir-accent); font-weight: 900; text-transform: uppercase; margin-right: 10px; }
+        @keyframes chatSlide { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="tribute-bar">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag">
+        <span>IN HONOR OF OLDMAN - FEB, 2025</span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag">
+    </div>
+
+    <div id="storm-container">
+        <svg class="bolt bolt-left" viewBox="0 0 100 500"><polyline points="50,0 20,100 60,180 10,300 80,380 30,500" /></svg>
+        <svg class="bolt bolt-right" viewBox="0 0 100 500"><polyline points="50,0 30,120 70,200 20,320 90,400 40,500" /></svg>
+    </div>
+
+    <div id="ticker-bar">
+        <div id="ticker-scroll">
+            <span class="ticker-item">NOW PLAYING: <span class="accent" id="live-game">SYNCING...</span></span>
+            <span class="ticker-item">SUPPORT THE PACK: <span class="accent">https://www.amazon.com/gp/goldbox?tag=werewolf3788-20</span></span>
+            <span class="ticker-item">MJOLNIRGAMING: <span class="accent">FOLLOW ON TWITCH & YOUTUBE</span></span>
+        </div>
+    </div>
+
+    <div class="hud-footer">
+        <img src="https://raw.githubusercontent.com/KFruti88/Universal-Stream-Overlay/main/images/Mjolnir%20Michael.png" class="stream-logo" alt="Michael Logo">
+    </div>
+
+    <div id="chat-container"></div>
+
+    <script>
+        const streamer = "mjolnirgaming";
+
+        const gameThemes = {
+            "fortnite": "#A020F0",
+            "marvel rivals": "#ED1D24",
+            "elder scrolls": "#DAA520",
+            "ready or not": "#2F4F4F",
+            "warzone": "#ff0000",
+            "just chatting": "#00BFFF"
+        };
+
+        // --- TRIBUTE LOGIC ---
+        const tributeGames = ["red dead redemption 2", "hunter: call of the wild", "the division"];
+
+        function handleTribute(gameName) {
+            const bar = document.getElementById('tribute-bar');
+            const lower = gameName.toLowerCase();
+            // Shows bar for RDR2, Hunter, or both Divisions
+            if (tributeGames.some(g => lower.includes(g))) {
+                bar.style.display = 'flex';
+            } else {
+                bar.style.display = 'none';
+            }
+        }
+
+        function setOverlayColor(gameName) {
+            let selectedColor = "#00BFFF";
+            const name = gameName.toLowerCase();
+            for (const [game, color] of Object.entries(gameThemes)) {
+                if (name.includes(game)) {
+                    selectedColor = color;
+                    break;
+                }
+            }
+            document.documentElement.style.setProperty('--mjolnir-accent', selectedColor);
+            document.documentElement.style.setProperty('--mjolnir-glow', selectedColor + "cc");
+        }
+
+        async function fetchTwitchData() {
+            try {
+                const response = await fetch(`https://decapi.me/twitch/game/${streamer}?v=${Date.now()}`);
+                const gameName = await response.text();
+                const display = document.getElementById('live-game');
+                
+                if (gameName.toLowerCase().includes("not found") || gameName === "") {
+                    display.innerText = "LIVE STREAMING";
+                    setOverlayColor("just chatting");
+                    handleTribute("");
+                } else {
+                    display.innerText = gameName.toUpperCase();
+                    setOverlayColor(gameName);
+                    handleTribute(gameName);
+                }
+            } catch(e) { display.innerText = "JOIN THE STORM"; }
+        }
+
+        window.addEventListener('onEventReceived', function (obj) {
+            if (!obj.detail.event) return;
+            if (obj.detail.listener === 'message-receive') {
+                const data = obj.detail.event.data;
+                const chatBox = document.getElementById('chat-container');
+                const entry = document.createElement('div');
+                entry.className = "chat-entry";
+                entry.innerHTML = `<span class="chat-user">${data.displayName}:</span> <span>${data.text}</span>`;
+                chatBox.appendChild(entry);
+                if (chatBox.children.length > 6) chatBox.removeChild(chatBox.children[0]);
+            }
+        });
+
+        fetchTwitchData();
+        setInterval(fetchTwitchData, 60000);
+    </script>
+</body>
+</html>
