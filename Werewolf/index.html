@@ -8,13 +8,19 @@
         /* Base Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
+            background-color: #000;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(100, 100, 100, 0.1), transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(40, 40, 60, 0.2), transparent 50%),
+                linear-gradient(135deg, #050505, #1a1a1a, #050505);
+            background-attachment: fixed;
             color: #e0e0e0;
             margin: 0;
             padding: 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         /* 90% Width Constraint */

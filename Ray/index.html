@@ -8,13 +8,19 @@
         /* Base Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
+            background-color: #000;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 69, 0, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1), transparent 40%),
+                linear-gradient(135deg, #1a0500, #3d0e00, #1a0500);
+            background-attachment: fixed;
             color: #e0e0e0;
             margin: 0;
             padding: 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         /* 90% Width Constraint */
@@ -151,17 +157,6 @@
                     <p>Management for our FS22 G-Portal dedicated server. Hub for the team's farming operations.</p>
                 </div>
                 <a href="https://github.com/KFruti88/Farming-Simulator" class="btn">View Farm Stats</a>
-            </div>
-
-            <div class="card">
-                <div>
-                    <h2>RayMystyro</h2>
-                    <div class="card-tags">
-                        <span class="tag">Twitch</span><span class="tag">Stream</span>
-                    </div>
-                    <p>Catch RayMystyro live on Twitch! Streaming various games and hanging out.</p>
-                </div>
-                <a href="https://www.twitch.tv/raymystyro" class="btn" target="_blank">Watch Live</a>
             </div>
 
         </main>
