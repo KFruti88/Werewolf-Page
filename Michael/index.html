@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TJ Hub | Project Dashboard</title>
+    <title>Michael Hub | Project Dashboard</title>
     <style>
         /* Base Styles */
         body {
@@ -167,14 +167,14 @@
     <div class="navbar">
         <a href="https://werewolf.ourflora.com/home/">Home</a>
         <a href="https://werewolf.ourflora.com/werewolf/">Werewolf</a>
-        <a href="../Ray/index.html">Ray</a>
+        <a href="https://werewolf.ourflora.com/raymystro/">Ray</a>
         <a href="https://werewolf.ourflora.com/darkwing-dog/">TJ</a>
-        <a href="../Michael/index.html">Michael</a>
+        <a href="https://werewolf.ourflora.com/mjolnirgaming-2/">Michael</a>
     </div>
 
     <div class="container">
         <header>
-            <h1>TJ Project Hub</h1>
+            <h1>Michael Project Hub</h1>
             <p>Gaming and Tracking Projects</p>
         </header>
 
@@ -182,20 +182,22 @@
             
             <div class="card">
                 <div>
-                    <h2>Darkwing Dog</h2>
+                    <h2>Recent Trophies</h2>
                     <div class="card-tags">
-                        <span class="tag">WordPress</span><span class="tag">Divi</span><span class="tag">Home</span>
+                        <span class="tag">IlIMjolnirIlI</span><span class="tag">PSN</span>
                     </div>
-                    <p>TJ's main website page hosted on WordPress Divi.</p>
+                    <div id="trophy-list" style="margin-top: 15px;">
+                        <p>Loading recent trophies...</p>
+                    </div>
                 </div>
-                <a href="https://werewolf.ourflora.com/darkwing-dog/" class="btn">Visit Website</a>
+                <a href="https://psntrophyleaders.com/user/view/IlIMjolnirIlI" target="_blank" class="btn">View Full Profile</a>
             </div>
 
             <div class="card">
                 <div>
                     <h2>New Project</h2>
                     <div class="card-tags">
-                        <span class="tag">TJ</span><span class="tag">Pending</span>
+                        <span class="tag">Michael</span><span class="tag">Pending</span>
                     </div>
                     <p>This is a placeholder for a new project. Add your details here.</p>
                 </div>
@@ -209,6 +211,39 @@
             <p>&copy; 2026 Werewolf Projects | Affiliate ID: Werewolf3788-20</p>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rssUrl = 'https://psntrophyleaders.com/user/view/IlIMjolnirIlI/rss';
+            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const listContainer = document.getElementById('trophy-list');
+                    if (data.status === 'ok' && data.items.length > 0) {
+                        let html = '<ul style="list-style: none; padding: 0; margin: 0;">';
+                        data.items.slice(0, 5).forEach(item => {
+                            const date = new Date(item.pubDate).toLocaleDateString();
+                            html += `
+                                <li style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                                    <div style="color: #ff4500; font-weight: 600; font-size: 0.95rem; margin-bottom: 4px;">${item.title}</div>
+                                    <div style="font-size: 0.8rem; color: #888;">Earned: ${date}</div>
+                                </li>
+                            `;
+                        });
+                        html += '</ul>';
+                        listContainer.innerHTML = html;
+                    } else {
+                        listContainer.innerHTML = '<p>No recent trophies found.</p>';
+                    }
+                })
+                .catch(err => {
+                    console.error('Error fetching trophies:', err);
+                    document.getElementById('trophy-list').innerHTML = '<p>Unable to load trophies at this time.</p>';
+                });
+        });
+    </script>
 
 </body>
 </html>
